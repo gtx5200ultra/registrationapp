@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "registrationapp.client": {
+    "registrationapp-web": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,19 +17,22 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/registrationapp.client",
+            "outputPath": "dist/registrationapp-web",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
             ],
             "scripts": []
           },
@@ -60,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "registrationapp.client:build:production"
+              "browserTarget": "registrationapp-web:build:production"
             },
             "development": {
-              "browserTarget": "registrationapp.client:build:development"
+              "browserTarget": "registrationapp-web:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -74,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "registrationapp.client:build"
+            "browserTarget": "registrationapp-web:build"
           }
         },
         "test": {
@@ -90,7 +97,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "src/styles.scss"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js"

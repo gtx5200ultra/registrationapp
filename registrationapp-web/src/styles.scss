@@ -1,0 +1,15 @@
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import '@angular/material/theming';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// Define the primary and accent colors
+$primary: mat-palette($mat-indigo);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+
+// Create a theme using the defined colors
+$theme: mat-light-theme($primary, $accent);
+
+// Apply the theme to Angular Material components
+@include angular-material-theme($theme);
