@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'registration-first-step',
   templateUrl: 'first-step.component.html'
 })
 export class FirstStepComponent {
-  constructor() {}
+  model: User = new User;
+
+  constructor() { }
 }
