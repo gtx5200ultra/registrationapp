@@ -16,8 +16,27 @@ namespace registrationapp_data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder
-                .ApplyConfiguration(new UserConfiguration());
+            builder.Entity<Country>()
+                .HasMany(e => e.Provinces)
+                .WithOne(e => e.Country)
+                .HasForeignKey(e => e.CountryId)
+                .HasPrincipalKey(e => e.Id);
+
+            builder.Entity<Country>()
+                .HasMany(e => e.Users)
+                .WithOne(e => e.Country)
+                .HasForeignKey(e => e.CountryId)
+                .HasPrincipalKey(e => e.Id);
+
+            builder.Entity<Province>()
+                .HasMany(e => e.Users)
+                .WithOne(e => e.Province)
+                .HasForeignKey(e => e.ProvinceId)
+                .HasPrincipalKey(e => e.Id);
+
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new CountryConfiguration());
+            builder.ApplyConfiguration(new ProvinceConfiguration());
         }
     }
 }

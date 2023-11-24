@@ -7,7 +7,7 @@ using registrationapp_data;
 
 #nullable disable
 
-namespace registrationappapi.Migrations
+namespace registrationapp_data.Migrations
 {
     [DbContext(typeof(RepositoryDbContext))]
     partial class RepositoryDbContextModelSnapshot : ModelSnapshot
@@ -25,11 +25,24 @@ namespace registrationappapi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Country 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Country 2"
+                        });
                 });
 
             modelBuilder.Entity("registrationapp_core.Models.Province", b =>
@@ -38,11 +51,12 @@ namespace registrationappapi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CountryId")
+                    b.Property<int>("CountryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -50,6 +64,38 @@ namespace registrationappapi.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Provinces");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryId = 1,
+                            Name = "Province 1.1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CountryId = 1,
+                            Name = "Province 1.2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CountryId = 2,
+                            Name = "Province 2.1"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CountryId = 2,
+                            Name = "Province 2.2"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CountryId = 2,
+                            Name = "Province 2.3"
+                        });
                 });
 
             modelBuilder.Entity("registrationapp_core.Models.User", b =>
@@ -85,21 +131,25 @@ namespace registrationappapi.Migrations
 
             modelBuilder.Entity("registrationapp_core.Models.Province", b =>
                 {
-                    b.HasOne("registrationapp_core.Models.Country", null)
+                    b.HasOne("registrationapp_core.Models.Country", "Country")
                         .WithMany("Provinces")
-                        .HasForeignKey("CountryId");
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("registrationapp_core.Models.User", b =>
                 {
                     b.HasOne("registrationapp_core.Models.Country", "Country")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("registrationapp_core.Models.Province", "Province")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -112,6 +162,13 @@ namespace registrationappapi.Migrations
             modelBuilder.Entity("registrationapp_core.Models.Country", b =>
                 {
                     b.Navigation("Provinces");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("registrationapp_core.Models.Province", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
