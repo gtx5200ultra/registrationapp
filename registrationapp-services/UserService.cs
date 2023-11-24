@@ -16,6 +16,7 @@ namespace registrationapp_services
         public Task<User> CreateUser(User user)
         {
             _unitOfWork.CommitAsync();
+            return null;
         }
     }
 }

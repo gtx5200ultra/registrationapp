@@ -4,13 +4,13 @@ using registrationapp_data.Configurations;
 
 namespace registrationapp_data
 {
-    public class AppDbContext : DbContext
+    public class RepositoryDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Province> Provinces { get; set; }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options)
+        public RepositoryDbContext(DbContextOptions<RepositoryDbContext> options)
             : base(options)
         { }
 

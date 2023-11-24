@@ -6,11 +6,11 @@ namespace registrationapp_data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly AppDbContext _context;
+        private readonly RepositoryDbContext _context;
         private UserRepository? _userRepository;
         private CountryRepository? _countryRepository;
 
-        public UnitOfWork(AppDbContext context)
+        public UnitOfWork(RepositoryDbContext context)
         {
             _context = context;
         }
