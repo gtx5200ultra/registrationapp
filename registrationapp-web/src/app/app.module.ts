@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app.routing';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FirstStepComponent } from './registration-form/first-step/first-step.component';
 import { SecondStepComponent } from './registration-form/second-step/second-step.component';
@@ -18,11 +20,13 @@ import { SecondStepComponent } from './registration-form/second-step/second-step
     SecondStepComponent
   ],
   imports: [
-    BrowserModule, 
-    HttpClientModule, 
-    AppRoutingModule, 
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule,
     MatFormFieldModule
   ],
   providers: [],

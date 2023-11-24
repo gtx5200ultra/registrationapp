@@ -6,7 +6,9 @@
         <mat-form-field class="col-md-offset-3 col-md-6 col-xs-12">
             <mat-label>Login</mat-label>
             <input type="email" matInput formControlName="login">
-            <mat-error *ngIf="registerForm.get('login')?.hasError('email') || registerForm.get('login')?.hasError('pattern')">
+            <mat-error *ngIf="isSubmitted && registerForm.get('login')?.hasError('required')">Required</mat-error>
+            <mat-error
+                *ngIf="registerForm.get('login')?.hasError('email') || registerForm.get('login')?.hasError('pattern')">
                 Login must be a valid email
             </mat-error>
         </mat-form-field>
@@ -15,14 +17,28 @@
             <mat-label>Password</mat-label>
             <input type="password" matInput formControlName="password">
             <!-- note: design says 1 uppercase letter -->
-            <mat-error *ngIf="registerForm.get('password')?.hasError('requiresDigitAndLetter')">Password must contain min 1 digit and 1 uppercase letter</mat-error>
+            <mat-error *ngIf="isSubmitted && registerForm.get('password')?.hasError('required')">Required</mat-error>
+            <mat-error *ngIf="registerForm.get('password')?.hasError('requiresDigitAndLetter')">
+                Password must contain min 1 digit and 1 uppercase letter
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-md-offset-3 col-md-6 col-xs-12">
             <mat-label>Confirm password</mat-label>
             <input type="password" matInput formControlName="confirmPassword">
-            <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('passwordMismatch')">Confirm password must be the same with password</mat-error>
+            <mat-error *ngIf="isSubmitted && registerForm.get('confirmPassword')?.hasError('required')">Required</mat-error>
+            <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('passwordMismatch')">
+                Confirm password must be the same with password
+            </mat-error>
         </mat-form-field>
+
+        <section>
+            <mat-checkbox labelPosition="before" formControlName="acceptTerms" class="col-md-offset-3 col-md-6 col-xs-12">
+                <span>Agree to work for food</span>
+            </mat-checkbox>
+        </section>
+
+        <button mat-raised-button type="submit" color="primary" [disabled]="registerForm.get('acceptTerms')?.value === false">Go to Step 2</button>
 
     </form>
 
