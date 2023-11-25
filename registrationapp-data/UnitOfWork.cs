@@ -9,6 +9,7 @@ namespace registrationapp_data
         private readonly RepositoryDbContext _context;
         private UserRepository? _userRepository;
         private CountryRepository? _countryRepository;
+        private ProvinceRepository? _provinceRepository;
 
         public UnitOfWork(RepositoryDbContext context)
         {
@@ -18,6 +19,8 @@ namespace registrationapp_data
         public IUserRepository Users => _userRepository ??= new UserRepository(_context);
 
         public ICountryRepository Countries => _countryRepository ??= new CountryRepository(_context);
+        
+        public IProvinceRepository Provinces => _provinceRepository ??= new ProvinceRepository(_context);
 
         public async Task<int> CommitAsync()
         {

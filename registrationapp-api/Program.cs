@@ -1,10 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using RegistrationApp.Middlewares;
 using registrationapp_core;
 using registrationapp_core.Services;
 using registrationapp_data;
 using registrationapp_services;
-using System;
 
 namespace RegistrationApp.Server
 {
@@ -12,10 +11,6 @@ namespace RegistrationApp.Server
     {
         public static void Main(string[] args)
         {
-            //var configuration = new ConfigurationBuilder()
-            //    .AddJsonFile("appsettings.json")
-            //    .Build();
-
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -26,16 +21,27 @@ namespace RegistrationApp.Server
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"),
                     x => x.MigrationsAssembly("registrationapp-data")));
 
-            //builder.Services.AddDbContext<RepositoryDbContext>(options =>
-            //    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"),
-            //    x => x.MigrationsAssembly(typeof(RepositoryDbContext).Assembly.FullName)));
-
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddTransient<IUserService, UserService>();
+            builder.Services.AddTransient<ICountryService, CountryService>();
+            builder.Services.AddTransient<IProvinceService, ProvinceService>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("DevelopmentPolicy", x =>
+                {
+                    x.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
 
-            //services.AddDbContext<RepositoryDbContext>(options =>
-            //    options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
+                options.AddPolicy("ProductionPolicy", x => 
+                { 
+                    x.WithOrigins("https://test.ngrok.io")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
 
             var app = builder.Build();
 
@@ -47,19 +53,28 @@ namespace RegistrationApp.Server
                 dbContext.Database.Migrate();
             }
 
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseCors("DevelopmentPolicy");
+            }
+            else
+            {
+                app.UseCors("ProductionPolicy");
+            }
+
+            app.UseMiddleware<ApiResponseMiddleware>();
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
-
-            // Configure the HTTP request pipeline.
-
             app.UseHttpsRedirection();
-
+            app.UseRouting();
             app.UseAuthorization();
 
-
-            app.MapControllers();
-
-            app.MapFallbackToFile("/index.html");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             app.Run();
         }

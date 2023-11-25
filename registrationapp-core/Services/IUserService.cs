@@ -6,4 +6,14 @@ namespace registrationapp_core.Services
     {
         Task<User> CreateUser(User user);
     }
+
+    public interface ICountryService
+    {
+        Task<IEnumerable<Country>> GetCountries();
+    }
+
+    public interface IProvinceService
+    {
+        Task<IEnumerable<Province>> GetProvincesByCountry(int countryId);
+    }
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidators } from "../form-validators";
+import { RegistrationFormDataService } from '../form-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'registration-first-step',
@@ -35,12 +37,16 @@ export class FirstStepComponent {
     updateOn: 'change',
   });
 
-  constructor(public fb: FormBuilder) { }
+  constructor(
+    private readonly fb: FormBuilder, 
+    private readonly router: Router,
+    private readonly formDataService: RegistrationFormDataService) { }
 
   onSubmit() {
     this.isSubmitted = true;
     if (this.registerForm.valid) {
-      alert('form is valid');
+      this.formDataService.setFirstStepData(this.registerForm.value);
+      this.router.navigate(['/second']);
     }
     console.warn(this.registerForm.value);
   }
