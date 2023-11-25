@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using registrationapp_core.Models;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using registrationapp.DTO;
 using registrationapp_core.Services;
 
 namespace registrationapp.Controllers
@@ -10,24 +10,21 @@ namespace registrationapp.Controllers
     public class CountryRegionsController : ControllerBase
     {
         private readonly ICountryRegionService _countryRegionService;
+        private readonly IMapper _mapper;
 
-        public CountryRegionsController(ICountryRegionService countryRegionService)
+        public CountryRegionsController(ICountryRegionService countryRegionService, IMapper mapper)
         {
             _countryRegionService = countryRegionService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Country>>> GetCountryRegionsByCountry([FromQuery] ProvincesByCountryRequest request)
+        public async Task<ActionResult> GetCountryRegionsByCountry([FromQuery] ProvincesByCountryDto request)
         {
-            var countries = await _countryRegionService.GetCountryRegionsByCountry(request.CountryId);
-            //var dto = _mapper.Map<Country, CountryDto>(countries);
-            return Ok(countries);
+            var countryRegions = await _countryRegionService.GetCountryRegionsByCountry(request.CountryId);
+            return Ok(_mapper.Map<IEnumerable<CountryRegionDto>>(countryRegions));
         }
     }
 
-    public class ProvincesByCountryRequest
-    {
-        [BindRequired]
-        public int CountryId { get; set; }
-    }
+
 }

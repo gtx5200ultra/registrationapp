@@ -2,6 +2,7 @@
 
 namespace registrationapp.Middlewares.ApiResponse
 {
+    /// <inheritdoc />
     public class ApiResponse<T> : IApiResponse<T>
     {
         [JsonPropertyName("statusCode")]

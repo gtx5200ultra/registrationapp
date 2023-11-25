@@ -12,16 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="database.sqlite" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="database.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\registrationapp-core\registrationapp-core.csproj" />
     <ProjectReference Include="..\registrationapp-data\registrationapp-data.csproj" />
     <ProjectReference Include="..\registrationapp-services\registrationapp-services.csproj" />
@@ -42,6 +32,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="database.sqlite">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

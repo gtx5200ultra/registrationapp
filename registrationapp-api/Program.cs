@@ -13,8 +13,6 @@ namespace registrationapp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
 
             builder.Services.AddDbContext<RepositoryDbContext>(options =>
@@ -73,10 +71,7 @@ namespace registrationapp
             app.UseRouting();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(x => x.MapControllers());
 
             app.Run();
         }

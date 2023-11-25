@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using registrationapp_core.Models;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using registrationapp.DTO;
 using registrationapp_core.Services;
 
 namespace registrationapp.Controllers
@@ -9,18 +10,19 @@ namespace registrationapp.Controllers
     public class CountriesController : ControllerBase
     {
         private readonly ICountryService _countryService;
+        private readonly IMapper _mapper;
 
-        public CountriesController(ICountryService countryService)
+        public CountriesController(ICountryService countryService, IMapper mapper)
         {
             _countryService = countryService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Country>>> GetAllProducts()
+        public async Task<ActionResult> GetAllProducts()
         {
             var countries = await _countryService.GetCountries();
-            //var dto = _mapper.Map<Country, CountryDto>(countries);
-            return Ok(countries);
+            return Ok(_mapper.Map<IEnumerable<CountryDto>>(countries));
         }
     }
 }

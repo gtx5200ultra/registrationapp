@@ -21,7 +21,7 @@ namespace registrationapp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> CreateUser([FromBody] UserDto dto)
+        public async Task<ActionResult> CreateUser([FromBody] UserDto dto)
         {
             var validator = new CreateUserValidator();
             var validationResult = await validator.ValidateAsync(dto);
@@ -32,7 +32,7 @@ namespace registrationapp.Controllers
             }
 
             var userDb = await _userService.CreateUser(_mapper.Map<User>(dto));
-            var user = _mapper.Map<UserDto>(userDb);
+            var user = _mapper.Map<CreatedUserDto>(userDb);
 
             return Ok(user);
         }

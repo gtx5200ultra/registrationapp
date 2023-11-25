@@ -8,16 +8,11 @@ namespace registrationapp.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<UserDto, User>()
-                .ForMember(x => x.Login, x => x.MapFrom(i => i.Login))
-                .ForMember(x => x.Password, x => x.MapFrom(i => i.Password))
-                .ForMember(x => x.CountryRegionId, x => x.MapFrom(i => i.CountryRegionId));
+            CreateMap<UserDto, User>();
 
-            CreateMap<User, CreatedUserDto>()
-                .ForMember(x => x.Id, x => x.MapFrom(i => i.Id))
-                .ForMember(x => x.Login, x => x.MapFrom(i => i.Login))
-                .ForMember(x => x.Province, x => x.MapFrom(i => i.CountryRegion.Name))
-                .ForMember(x => x.Country, x => x.MapFrom(i => i.CountryRegion.Country.Name));
+            CreateMap<User, CreatedUserDto>();
+            CreateMap<Country, CountryDto>();
+            CreateMap<CountryRegion, CountryRegionDto>();
         }
     }
 }
