@@ -8,6 +8,8 @@ import { ApiCountryRegionService } from 'src/services/api-countryregion.service'
 import { RegistrationFormDataService } from '../form-data.service';
 import { ApiUserService } from 'src/services/api-user.service';
 import { User } from 'src/models/user';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'registration-second-step',
@@ -41,7 +43,9 @@ export class SecondStepComponent implements OnInit, OnDestroy {
     private readonly apiCountryService: ApiCountryService,
     private readonly apiCountryRegionService: ApiCountryRegionService,
     private readonly apiUserService: ApiUserService,
-    private readonly formDataService: RegistrationFormDataService) { }
+    private readonly formDataService: RegistrationFormDataService,
+    private readonly router: Router,
+    private readonly toastr: ToastrService) { }
 
   ngOnInit() {
     this.apiCountryService.getCountries()
@@ -64,19 +68,15 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.isSubmitted = true;
     if (this.locationForm.valid) {
-      console.log(this.formDataService.getFirstStepData());
-      console.log(this.locationForm.value);
       let user = { ...this.formDataService.getFirstStepData(), ...this.locationForm.value } as User;
 
       this.apiUserService.createUser(user)
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe(() => {
-        console.log('done');
+        this.router.navigate(['/first']);
+        this.toastr.success("User has been created");
       });
-
-      console.log(user);
     }
-    console.warn('Done');
   }
 
   ngOnDestroy() {

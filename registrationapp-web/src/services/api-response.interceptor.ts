@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class ApiResponseInterceptor implements HttpInterceptor {
@@ -15,7 +16,7 @@ export class ApiResponseInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    //console.log(request);
+    const toastr = inject(ToastrService);
 
     if (request.url.indexOf('api/') < 0) {
       return next.handle(request);
@@ -32,7 +33,7 @@ export class ApiResponseInterceptor implements HttpInterceptor {
         return response;
       }),
       catchError((errorResponse) => {
-        //todo: gentle handle error (errorResponse.error.errorMessage)
+        toastr.error(errorResponse.error.errorMessage);
         throw errorResponse;
       })
     );

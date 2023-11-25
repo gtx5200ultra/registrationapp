@@ -13,3 +13,6 @@ $theme: mat-light-theme($primary, $accent);
 
 // Apply the theme to Angular Material components
 @include angular-material-theme($theme);
+
+// regular style toast
+@import 'ngx-toastr/toastr';

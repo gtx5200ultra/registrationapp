@@ -17,6 +17,7 @@ import { ApiCountryService } from 'src/services/api-country.service';
 import { ApiResponseInterceptor } from 'src/services/api-response.interceptor';
 import { ApiCountryRegionService } from 'src/services/api-countryregion.service';
 import { ApiUserService } from 'src/services/api-user.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ApiUserService } from 'src/services/api-user.service';
     MatCheckboxModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     ApiCountryService,
