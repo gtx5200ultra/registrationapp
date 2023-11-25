@@ -23,9 +23,14 @@ namespace registrationapp_data.Repositories
             await Context.Set<T>().AddRangeAsync(entities);
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
         {
-            return Context.Set<T>().Where(predicate).ToList();
+            return await Context.Set<T>().FirstOrDefaultAsync(predicate) != null;
+        }
+
+        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await Context.Set<T>().Where(predicate).ToListAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()

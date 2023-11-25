@@ -15,9 +15,13 @@ namespace registrationapp_services
 
         public async Task<User> CreateUser(User user)
         {
+            if (await _unitOfWork.Users.AnyAsync(x => x.Login == user.Login))
+            {
+                throw new InvalidOperationException("User already exists");
+            }
+
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.CommitAsync();
-
             return user;
         }
     }
