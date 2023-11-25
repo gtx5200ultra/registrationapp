@@ -24,7 +24,6 @@ export class ApiResponseInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       map(response => {
-        console.log(response);
         if (response instanceof HttpResponse) {
           if (response.status === 200 && response.body) {
             return response.clone({ body: response.body.data });
