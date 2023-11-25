@@ -16,19 +16,23 @@ export class FirstStepComponent {
       validators: [
         Validators.required,
         Validators.email,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')], updateOn: "change"
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        Validators.max(255)
+      ], updateOn: "change",
     }],
     password: [, {
       validators:
         [
           Validators.required,
-          PasswordValidators.patternValidator(new RegExp("(?=.*[0-9A-Z])(?=.*[A-Z])(?=.*[0-9])"), { requiresDigitAndLetter: true })
+          PasswordValidators.patternValidator(new RegExp("(?=.*[0-9A-Z])(?=.*[A-Z])(?=.*[0-9])"), { requiresDigitAndLetter: true }),
+          Validators.max(255)
         ], updateOn: "change"
     }],
     confirmPassword: [, {
       validators:
         [
-          Validators.required
+          Validators.required,
+          Validators.max(255)
         ], updateOn: "change"
     }],
     acceptTerms: [false, { validators: [Validators.requiredTrue], updateOn: 'change' }]
@@ -48,6 +52,5 @@ export class FirstStepComponent {
       this.formDataService.setFirstStepData(this.registerForm.value);
       this.router.navigate(['/second']);
     }
-    console.warn(this.registerForm.value);
   }
 }
