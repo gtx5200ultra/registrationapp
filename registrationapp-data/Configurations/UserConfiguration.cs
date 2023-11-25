@@ -24,6 +24,9 @@ namespace registrationapp_data.Configurations
                 .Property(m => m.Password)
                 .IsRequired()
                 .HasMaxLength(255);
+
+            builder.HasIndex(i => i.Login)
+                .IsUnique();
         }
     }
 }
