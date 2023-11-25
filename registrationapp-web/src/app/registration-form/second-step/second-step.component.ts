@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { Country } from 'src/models/country';
 import { CountryRegion } from 'src/models/countryregion';
@@ -13,10 +13,21 @@ import { ApiCountryRegionService } from 'src/services/api-countryregion.service'
 export class SecondStepComponent implements OnInit, OnDestroy {
 
   private componentDestroyed$: Subject<boolean> = new Subject()
-  private isSubmitted = false;
+  isSubmitted = false;
+
   locationForm = this.fb.group({
-    countryId: [],
-    countryRegionId: []
+    countryId: [, {
+      validators:
+        [
+          Validators.required
+        ], updateOn: "change"
+    }],
+    countryRegionId: [{ value: null, disabled: true }, {
+      validators:
+        [
+          Validators.required
+        ], updateOn: "change"
+    }]
   });
 
   countries: Country[] = [];
@@ -28,7 +39,6 @@ export class SecondStepComponent implements OnInit, OnDestroy {
     private readonly apiCountryRegionService: ApiCountryRegionService) { }
 
   ngOnInit() {
-    console.log('a');
     this.apiCountryService.getCountries()
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((response: Country[]) => {
@@ -42,6 +52,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
       .subscribe((response: CountryRegion[]) => {
         this.countryRegions = response;
         this.locationForm.patchValue({ countryRegionId: null });
+        this.locationForm.controls['countryRegionId'].enable();
       });
   }
 

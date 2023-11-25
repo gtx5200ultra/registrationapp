@@ -36,9 +36,12 @@
             <mat-checkbox labelPosition="before" formControlName="acceptTerms" class="col-md-offset-3 col-md-6 col-xs-12">
                 <span>Agree to work for food</span>
             </mat-checkbox>
+            <ng-container *ngIf="isSubmitted && registerForm.get('acceptTerms')?.value === false">
+                You must agree with the Terms
+            </ng-container>
         </section>
 
-        <button mat-raised-button type="submit" color="primary" [disabled]="registerForm.get('acceptTerms')?.value === false">Go to Step 2</button>
+        <button mat-raised-button type="submit" color="primary">Go to Step 2</button>
 
     </form>
 
