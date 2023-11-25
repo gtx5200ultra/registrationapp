@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { Country } from 'src/models/country';
-import { Province } from 'src/models/province';
+import { CountryRegion } from 'src/models/countryregion';
 import { ApiCountryService } from 'src/services/api-country.service';
-import { ApiProvinceService } from 'src/services/api-province.service';
+import { ApiCountryRegionService } from 'src/services/api-countryregion.service';
 
 @Component({
   selector: 'registration-second-step',
@@ -25,7 +25,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   constructor(
     private readonly fb: FormBuilder,
     private readonly apiCountryService: ApiCountryService,
-    private readonly apiProvinceService: ApiProvinceService) { }
+    private readonly apiCountryRegionService: ApiCountryRegionService) { }
 
   ngOnInit() {
     console.log('a');
@@ -37,9 +37,9 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   }
 
   onCountryChange(e: any) {
-    this.apiProvinceService.getProvinces(this.locationForm.value?.countryId || 0)
+    this.apiCountryRegionService.getProvinces(this.locationForm.value?.countryId || 0)
       .pipe(takeUntil(this.componentDestroyed$))
-      .subscribe((response: Province[]) => {
+      .subscribe((response: CountryRegion[]) => {
         this.provinces = response;
         this.locationForm.patchValue({ provinceId: null });
       });

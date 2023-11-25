@@ -45,7 +45,7 @@ namespace registrationapp_data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("registrationapp_core.Models.Province", b =>
+            modelBuilder.Entity("registrationapp_core.Models.CountryRegion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,7 +63,7 @@ namespace registrationapp_data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Provinces");
+                    b.ToTable("CountryRegions");
 
                     b.HasData(
                         new
@@ -104,7 +104,7 @@ namespace registrationapp_data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CountryId")
+                    b.Property<int>("CountryRegionId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Login")
@@ -117,22 +117,17 @@ namespace registrationapp_data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProvinceId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("ProvinceId");
+                    b.HasIndex("CountryRegionId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("registrationapp_core.Models.Province", b =>
+            modelBuilder.Entity("registrationapp_core.Models.CountryRegion", b =>
                 {
                     b.HasOne("registrationapp_core.Models.Country", "Country")
-                        .WithMany("Provinces")
+                        .WithMany("CountryRegions")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -142,31 +137,21 @@ namespace registrationapp_data.Migrations
 
             modelBuilder.Entity("registrationapp_core.Models.User", b =>
                 {
-                    b.HasOne("registrationapp_core.Models.Country", "Country")
+                    b.HasOne("registrationapp_core.Models.CountryRegion", "CountryRegion")
                         .WithMany("Users")
-                        .HasForeignKey("CountryId")
+                        .HasForeignKey("CountryRegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("registrationapp_core.Models.Province", "Province")
-                        .WithMany("Users")
-                        .HasForeignKey("ProvinceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Country");
-
-                    b.Navigation("Province");
+                    b.Navigation("CountryRegion");
                 });
 
             modelBuilder.Entity("registrationapp_core.Models.Country", b =>
                 {
-                    b.Navigation("Provinces");
-
-                    b.Navigation("Users");
+                    b.Navigation("CountryRegions");
                 });
 
-            modelBuilder.Entity("registrationapp_core.Models.Province", b =>
+            modelBuilder.Entity("registrationapp_core.Models.CountryRegion", b =>
                 {
                     b.Navigation("Users");
                 });

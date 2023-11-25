@@ -1,6 +1,6 @@
 ﻿namespace registrationapp_core.Models;
 
-public class Province
+public class CountryRegion
 {
     public int Id { get; set; }
 

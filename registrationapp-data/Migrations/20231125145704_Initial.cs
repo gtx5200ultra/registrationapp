@@ -27,7 +27,7 @@ namespace registrationapp_data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Provinces",
+                name: "CountryRegions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -37,9 +37,9 @@ namespace registrationapp_data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Provinces", x => x.Id);
+                    table.PrimaryKey("PK_CountryRegions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Provinces_Countries_CountryId",
+                        name: "FK_CountryRegions_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
@@ -53,22 +53,15 @@ namespace registrationapp_data.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Login = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Password = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    CountryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProvinceId = table.Column<int>(type: "INTEGER", nullable: false)
+                    CountryRegionId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Countries_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Users_Provinces_ProvinceId",
-                        column: x => x.ProvinceId,
-                        principalTable: "Provinces",
+                        name: "FK_Users_CountryRegions_CountryRegionId",
+                        column: x => x.CountryRegionId,
+                        principalTable: "CountryRegions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -83,7 +76,7 @@ namespace registrationapp_data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Provinces",
+                table: "CountryRegions",
                 columns: new[] { "Id", "CountryId", "Name" },
                 values: new object[,]
                 {
@@ -95,19 +88,14 @@ namespace registrationapp_data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Provinces_CountryId",
-                table: "Provinces",
+                name: "IX_CountryRegions_CountryId",
+                table: "CountryRegions",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_CountryId",
+                name: "IX_Users_CountryRegionId",
                 table: "Users",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_ProvinceId",
-                table: "Users",
-                column: "ProvinceId");
+                column: "CountryRegionId");
         }
 
         /// <inheritdoc />
@@ -117,7 +105,7 @@ namespace registrationapp_data.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Provinces");
+                name: "CountryRegions");
 
             migrationBuilder.DropTable(
                 name: "Countries");

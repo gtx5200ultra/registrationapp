@@ -6,7 +6,7 @@ namespace registrationapp_core
     {
         IUserRepository Users { get; }
         ICountryRepository Countries { get; }
-        IProvinceRepository Provinces { get; }
+        ICountryRegionRepository CountryRegions { get; }
         Task<int> CommitAsync();
     }
 }

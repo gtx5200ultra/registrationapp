@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiProvinceService {
+export class ApiCountryRegionService {
 
   constructor(private http: HttpClient) { }
 

@@ -4,17 +4,17 @@ using registrationapp_core.Repositories;
 
 namespace registrationapp_data.Repositories;
 
-public class ProvinceRepository : Repository<Province>, IProvinceRepository
+public class CountryRegionRepository : Repository<CountryRegion>, ICountryRegionRepository
 {
     private readonly RepositoryDbContext _repositoryDbContext;
 
-    public ProvinceRepository(DbContext context) : base(context)
+    public CountryRegionRepository(DbContext context) : base(context)
     {
         _repositoryDbContext = Context as RepositoryDbContext ?? throw new InvalidOperationException();
     }
 
-    public async Task<IEnumerable<Province>> GetProvincesByCountry(int countryId)
+    public async Task<IEnumerable<CountryRegion>> GetProvincesByCountry(int countryId)
     {
-        return await _repositoryDbContext.Provinces.Where(x => x.CountryId == countryId).ToListAsync();
+        return await _repositoryDbContext.CountryRegions.Where(x => x.CountryId == countryId).ToListAsync();
     }
 }

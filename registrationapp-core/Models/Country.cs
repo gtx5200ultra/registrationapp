@@ -6,7 +6,5 @@ public class Country
 
     public string Name { get; set; }
 
-    public ICollection<Province> Provinces { get; set; }
-
-    public ICollection<User> Users { get; set; }
+    public ICollection<CountryRegion> CountryRegions { get; set; }
 }

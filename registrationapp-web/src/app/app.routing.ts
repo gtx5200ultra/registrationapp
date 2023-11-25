@@ -5,7 +5,7 @@ import { SecondStepComponent } from './registration-form/second-step/second-step
 import { SecondStepGuard } from './registration-form/form-guard.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'first', pathMatch: 'full' },
+  { path: '', redirectTo: 'second', pathMatch: 'full' },
   { path: "first", component: FirstStepComponent },
   { path: "second", component: SecondStepComponent, canActivate: [SecondStepGuard] },
 ];

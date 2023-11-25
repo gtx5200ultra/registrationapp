@@ -15,7 +15,7 @@ import { FirstStepComponent } from './registration-form/first-step/first-step.co
 import { SecondStepComponent } from './registration-form/second-step/second-step.component';
 import { ApiCountryService } from 'src/services/api-country.service';
 import { ApiResponseInterceptor } from 'src/services/api-response.interceptor';
-import { ApiProvinceService } from 'src/services/api-province.service';
+import { ApiCountryRegionService } from 'src/services/api-countryregion.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { ApiProvinceService } from 'src/services/api-province.service';
   ],
   providers: [
     ApiCountryService,
-    ApiProvinceService,
+    ApiCountryRegionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiResponseInterceptor,

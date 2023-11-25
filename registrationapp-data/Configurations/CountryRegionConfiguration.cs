@@ -4,9 +4,9 @@ using registrationapp_core.Models;
 
 namespace registrationapp_data.Configurations
 {
-    public class ProvinceConfiguration : IEntityTypeConfiguration<Province>
+    public class CountryRegionConfiguration : IEntityTypeConfiguration<CountryRegion>
     {
-        public void Configure(EntityTypeBuilder<Province> builder)
+        public void Configure(EntityTypeBuilder<CountryRegion> builder)
         {
             builder
                 .HasKey(a => a.Id);
@@ -20,7 +20,7 @@ namespace registrationapp_data.Configurations
                 .IsRequired()
                 .HasMaxLength(255);
 
-            builder.HasData(new List<Province> {
+            builder.HasData(new List<CountryRegion> {
                 new()
                 {
                     Id = 1,

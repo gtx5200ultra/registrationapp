@@ -12,8 +12,8 @@ namespace registrationapp_core.Services
         Task<IEnumerable<Country>> GetCountries();
     }
 
-    public interface IProvinceService
+    public interface ICountryRegionService
     {
-        Task<IEnumerable<Province>> GetProvincesByCountry(int countryId);
+        Task<IEnumerable<CountryRegion>> GetProvincesByCountry(int countryId);
     }
 }

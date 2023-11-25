@@ -7,19 +7,19 @@ namespace RegistrationApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProvincesController : ControllerBase
+    public class CountryRegionsController : ControllerBase
     {
-        private readonly IProvinceService _provinceService;
+        private readonly ICountryRegionService _countryRegionService;
 
-        public ProvincesController(IProvinceService provinceService)
+        public CountryRegionsController(ICountryRegionService countryRegionService)
         {
-            _provinceService = provinceService;
+            _countryRegionService = countryRegionService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Country>>> GetProvincesByCountry([FromQuery] ProvincesByCountryRequest request)
         {
-            var countries = await _provinceService.GetProvincesByCountry(request.CountryId);
+            var countries = await _countryRegionService.GetProvincesByCountry(request.CountryId);
             //var dto = _mapper.Map<Country, CountryDto>(countries);
             return Ok(countries);
         }

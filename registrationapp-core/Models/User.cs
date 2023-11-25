@@ -8,9 +8,7 @@ public class User
 
     public string Password { get; set; }
 
-    public int CountryId { get; set; }
-    public Country Country { get; set; }
+    public int CountryRegionId { get; set; }
 
-    public int ProvinceId { get; set; }
-    public Province Province { get; set; }
+    public CountryRegion CountryRegion { get; set; }
 }

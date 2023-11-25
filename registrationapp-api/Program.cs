@@ -24,7 +24,7 @@ namespace RegistrationApp.Server
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<ICountryService, CountryService>();
-            builder.Services.AddTransient<IProvinceService, ProvinceService>();
+            builder.Services.AddTransient<ICountryRegionService, CountryRegionService>();
 
             builder.Services.AddCors(options =>
             {
