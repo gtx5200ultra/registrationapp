@@ -16,11 +16,11 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   private isSubmitted = false;
   locationForm = this.fb.group({
     countryId: [],
-    provinceId: []
+    countryRegionId: []
   });
 
   countries: Country[] = [];
-  provinces: Country[] = [];
+  countryRegions: Country[] = [];
 
   constructor(
     private readonly fb: FormBuilder,
@@ -40,8 +40,8 @@ export class SecondStepComponent implements OnInit, OnDestroy {
     this.apiCountryRegionService.getProvinces(this.locationForm.value?.countryId || 0)
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((response: CountryRegion[]) => {
-        this.provinces = response;
-        this.locationForm.patchValue({ provinceId: null });
+        this.countryRegions = response;
+        this.locationForm.patchValue({ countryRegionId: null });
       });
   }
 
