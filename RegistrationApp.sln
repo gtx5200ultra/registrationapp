@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registrationapp-api", "regi
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "registrationapp-web", "registrationapp-web\registrationapp-web.esproj", "{04E611E6-5B6B-4F0A-B9BA-4CED8F3E81DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registrationapp-core", "registrationapp-core\registrationapp-core.csproj", "{D902AE24-A53C-42F4-B000-6E37282302A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registrationapp-core", "registrationapp-core\registrationapp-core.csproj", "{D902AE24-A53C-42F4-B000-6E37282302A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registrationapp-data", "registrationapp-data\registrationapp-data.csproj", "{E76988D3-3342-4E3B-8BC8-BA3A345091A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registrationapp-data", "registrationapp-data\registrationapp-data.csproj", "{E76988D3-3342-4E3B-8BC8-BA3A345091A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registrationapp-services", "registrationapp-services\registrationapp-services.csproj", "{94552B3D-1856-4EDB-B05D-6ECF8A32E5A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registrationapp-services", "registrationapp-services\registrationapp-services.csproj", "{94552B3D-1856-4EDB-B05D-6ECF8A32E5A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registrationapp-api-tests", "registrationapp-api-tests\registrationapp-api-tests.csproj", "{8B1E2F00-5468-4F7A-9184-6902505214BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{94552B3D-1856-4EDB-B05D-6ECF8A32E5A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94552B3D-1856-4EDB-B05D-6ECF8A32E5A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94552B3D-1856-4EDB-B05D-6ECF8A32E5A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B1E2F00-5468-4F7A-9184-6902505214BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B1E2F00-5468-4F7A-9184-6902505214BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B1E2F00-5468-4F7A-9184-6902505214BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B1E2F00-5468-4F7A-9184-6902505214BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
