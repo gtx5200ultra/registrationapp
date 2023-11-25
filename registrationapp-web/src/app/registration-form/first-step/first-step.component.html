@@ -32,12 +32,12 @@
             </mat-error>
         </mat-form-field>
 
-        <section>
-            <mat-checkbox labelPosition="before" formControlName="acceptTerms" class="col-md-offset-3 col-md-6 col-xs-12">
+        <section class="col-md-offset-3 col-md-6 col-xs-12">
+            <mat-checkbox labelPosition="before" formControlName="acceptTerms" class="col-md-12">
                 <span>Agree to work for food</span>
             </mat-checkbox>
             <ng-container *ngIf="isSubmitted && registerForm.get('acceptTerms')?.value === false">
-                You must agree with the Terms
+                <div class="col-md-12 alert alert-danger">You must agree with the Terms</div>
             </ng-container>
         </section>
 
