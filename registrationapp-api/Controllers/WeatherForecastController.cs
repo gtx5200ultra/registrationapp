@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RegistrationApp.Server.Controllers
+namespace registrationapp.Controllers
 {
     [ApiController]
     [Route("[controller]")]

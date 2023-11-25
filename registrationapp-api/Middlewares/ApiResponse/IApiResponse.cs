@@ -1,4 +1,4 @@
-﻿namespace RegistrationApp.Middlewares
+﻿namespace registrationapp.Middlewares.ApiResponse
 {
     public interface IApiResponse<T>
     {

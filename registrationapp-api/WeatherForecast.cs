@@ -1,4 +1,4 @@
-namespace RegistrationApp.Server
+namespace registrationapp
 {
     public class WeatherForecast
     {

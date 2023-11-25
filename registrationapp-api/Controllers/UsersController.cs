@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using RegistrationApp.DTO;
+using registrationapp.DTO;
+using registrationapp.Validators;
 using registrationapp_core.Models;
 using registrationapp_core.Services;
 
-namespace RegistrationApp.Controllers
+namespace registrationapp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -22,7 +23,17 @@ namespace RegistrationApp.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser([FromBody] UserDto dto)
         {
-            var user = await _userService.CreateUser(_mapper.Map<User>(dto));
+            var validator = new CreateUserValidator();
+            var validationResult = await validator.ValidateAsync(dto);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.First().ErrorMessage);
+            }
+
+            var userDb = await _userService.CreateUser(_mapper.Map<User>(dto));
+            var user = _mapper.Map<UserDto>(userDb);
+
             return Ok(user);
         }
     }

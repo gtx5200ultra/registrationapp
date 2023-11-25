@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-namespace RegistrationApp.Middlewares
+namespace registrationapp.Middlewares.ApiResponse
 {
     public class ApiResponseMiddleware
     {
@@ -12,47 +12,63 @@ namespace RegistrationApp.Middlewares
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context)
         {
-            var originalResponseBody = context.Response.Body;
+            var originalBody = context.Response.Body;
 
             try
             {
-                using var responseBody = new MemoryStream();
-                context.Response.Body = responseBody;
+                using var memStream = new MemoryStream();
+
+                context.Response.Body = memStream;
 
                 await _next(context);
 
-                if (context.Response.StatusCode == 200 && context.Response.ContentType?.Contains("application/json") == true)
+                memStream.Position = 0;
+
+                switch (context.Response.StatusCode)
                 {
-                    context.Response.Body.Seek(0, SeekOrigin.Begin);
-                    var responseBodyText = await new StreamReader(context.Response.Body).ReadToEndAsync();
-                    context.Response.Body.Seek(0, SeekOrigin.Begin);
-
-                    var responseData = JsonSerializer.Deserialize<object>(responseBodyText);
-
-                    var apiResponse = new ApiResponse<object>(context.Response.StatusCode, responseData);
-                    var apiResponseJson = JsonSerializer.Serialize(apiResponse);
-
-                    await using var apiResponseBody = new MemoryStream(Encoding.UTF8.GetBytes(apiResponseJson));
-                    await apiResponseBody.CopyToAsync(originalResponseBody);
+                    case StatusCodes.Status200OK:
+                        {
+                            context.Response.ContentType = "application/json";
+                            var responseData = JsonSerializer.Deserialize<object>(await new StreamReader(memStream).ReadToEndAsync());
+                            var apiResponse = new ApiResponse<object>(context.Response.StatusCode, responseData ?? new { });
+                            await using var responseBody = new MemoryStream(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(apiResponse)));
+                            await responseBody.CopyToAsync(originalBody);
+                            break;
+                        }
+                    case StatusCodes.Status400BadRequest:
+                        {
+                            context.Response.ContentType = "application/json";
+                            var errorText = await new StreamReader(memStream).ReadToEndAsync();
+                            var apiResponse = new ApiResponse<object?>(context.Response.StatusCode, null, errorText);
+                            await using var responseBody = new MemoryStream(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(apiResponse)));
+                            await responseBody.CopyToAsync(originalBody);
+                            break;
+                        }
+                    default:
+                        {
+                            memStream.Position = 0;
+                            await memStream.CopyToAsync(originalBody);
+                            break;
+                        }
                 }
             }
             catch (Exception ex)
             {
+                /* any logger implementation if needed */
+
                 context.Response.Clear();
-                context.Response.StatusCode = 500;
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 context.Response.ContentType = "application/json";
 
-                var errorResponse = new ApiResponse<object?>(500, null, ex.Message);
-                var errorResponseJson = JsonSerializer.Serialize(errorResponse);
-
-                await using var errorResponseBody = new MemoryStream(Encoding.UTF8.GetBytes(errorResponseJson));
-                await errorResponseBody.CopyToAsync(originalResponseBody);
+                var errorResponse = JsonSerializer.Serialize(new ApiResponse<string?>(500, null, ex.Message));
+                await using var errorResponseBody = new MemoryStream(Encoding.UTF8.GetBytes(errorResponse));
+                await errorResponseBody.CopyToAsync(originalBody);
             }
             finally
             {
-                context.Response.Body = originalResponseBody;
+                context.Response.Body = originalBody;
             }
         }
     }

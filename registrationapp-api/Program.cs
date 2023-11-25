@@ -1,12 +1,11 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using RegistrationApp.Middlewares;
+using registrationapp.Middlewares.ApiResponse;
 using registrationapp_core;
 using registrationapp_core.Services;
 using registrationapp_data;
 using registrationapp_services;
 
-namespace RegistrationApp.Server
+namespace registrationapp
 {
     public class Program
     {

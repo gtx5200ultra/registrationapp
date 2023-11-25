@@ -2,7 +2,7 @@
 using registrationapp_core.Models;
 using registrationapp_core.Services;
 
-namespace RegistrationApp.Controllers
+namespace registrationapp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

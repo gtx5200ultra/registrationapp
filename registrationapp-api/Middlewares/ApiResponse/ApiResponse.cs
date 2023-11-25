@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RegistrationApp.Middlewares
+namespace registrationapp.Middlewares.ApiResponse
 {
     public class ApiResponse<T> : IApiResponse<T>
     {
