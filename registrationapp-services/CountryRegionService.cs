@@ -13,7 +13,7 @@ public class CountryRegionService : ICountryRegionService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<CountryRegion>> GetProvincesByCountry(int countryId)
+    public async Task<IEnumerable<CountryRegion>> GetCountryRegionsByCountry(int countryId)
     {
         return await _unitOfWork.CountryRegions.GetProvincesByCountry(countryId);
     }

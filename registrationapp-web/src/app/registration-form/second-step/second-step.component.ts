@@ -37,7 +37,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   }
 
   onCountryChange(e: any) {
-    this.apiCountryRegionService.getProvinces(this.locationForm.value?.countryId || 0)
+    this.apiCountryRegionService.getCountryRegionsByCountry(this.locationForm.value?.countryId || 0)
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((response: CountryRegion[]) => {
         this.countryRegions = response;

@@ -17,9 +17,9 @@ namespace RegistrationApp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Country>>> GetProvincesByCountry([FromQuery] ProvincesByCountryRequest request)
+        public async Task<ActionResult<IEnumerable<Country>>> GetCountryRegionsByCountry([FromQuery] ProvincesByCountryRequest request)
         {
-            var countries = await _countryRegionService.GetProvincesByCountry(request.CountryId);
+            var countries = await _countryRegionService.GetCountryRegionsByCountry(request.CountryId);
             //var dto = _mapper.Map<Country, CountryDto>(countries);
             return Ok(countries);
         }

@@ -9,7 +9,7 @@ export class ApiCountryRegionService {
 
   constructor(private http: HttpClient) { }
 
-  getProvinces(id: number): Observable<any> {
-    return this.http.get<any>(`api/provinces?countryId=${id}`);
+  getCountryRegionsByCountry(id: number): Observable<any> {
+    return this.http.get<any>(`api/countryregions?countryId=${id}`);
   }
 }
