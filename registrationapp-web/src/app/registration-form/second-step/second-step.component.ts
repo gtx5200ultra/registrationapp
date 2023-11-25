@@ -5,6 +5,9 @@ import { Country } from 'src/models/country';
 import { CountryRegion } from 'src/models/countryregion';
 import { ApiCountryService } from 'src/services/api-country.service';
 import { ApiCountryRegionService } from 'src/services/api-countryregion.service';
+import { RegistrationFormDataService } from '../form-data.service';
+import { ApiUserService } from 'src/services/api-user.service';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'registration-second-step',
@@ -36,7 +39,9 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   constructor(
     private readonly fb: FormBuilder,
     private readonly apiCountryService: ApiCountryService,
-    private readonly apiCountryRegionService: ApiCountryRegionService) { }
+    private readonly apiCountryRegionService: ApiCountryRegionService,
+    private readonly apiUserService: ApiUserService,
+    private readonly formDataService: RegistrationFormDataService) { }
 
   ngOnInit() {
     this.apiCountryService.getCountries()
@@ -59,7 +64,17 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.isSubmitted = true;
     if (this.locationForm.valid) {
+      console.log(this.formDataService.getFirstStepData());
+      console.log(this.locationForm.value);
+      let user = { ...this.formDataService.getFirstStepData(), ...this.locationForm.value } as User;
 
+      this.apiUserService.createUser(user)
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(() => {
+        console.log('done');
+      });
+
+      console.log(user);
     }
     console.warn('Done');
   }

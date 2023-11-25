@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using RegistrationApp.DTO;
 using registrationapp_core.Models;
 using registrationapp_core.Services;
@@ -10,19 +11,19 @@ namespace RegistrationApp.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser([FromBody] UserDto dto)
         {
-            var t = dto;
-            //var countries = await _countryService.GetCountries();
-            //var dto = _mapper.Map<Country, CountryDto>(countries);
-            return Ok(new User());
+            var user = await _userService.CreateUser(_mapper.Map<User>(dto));
+            return Ok(user);
         }
     }
 }

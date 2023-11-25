@@ -13,10 +13,12 @@ namespace registrationapp_services
             _unitOfWork = unitOfWork;
         }
 
-        public Task<User> CreateUser(User user)
+        public async Task<User> CreateUser(User user)
         {
-            _unitOfWork.CommitAsync();
-            return null;
+            await _unitOfWork.Users.AddAsync(user);
+            await _unitOfWork.CommitAsync();
+
+            return user;
         }
     }
 }

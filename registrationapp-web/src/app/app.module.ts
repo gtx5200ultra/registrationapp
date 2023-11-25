@@ -16,6 +16,7 @@ import { SecondStepComponent } from './registration-form/second-step/second-step
 import { ApiCountryService } from 'src/services/api-country.service';
 import { ApiResponseInterceptor } from 'src/services/api-response.interceptor';
 import { ApiCountryRegionService } from 'src/services/api-countryregion.service';
+import { ApiUserService } from 'src/services/api-user.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ApiCountryRegionService } from 'src/services/api-countryregion.service'
   providers: [
     ApiCountryService,
     ApiCountryRegionService,
+    ApiUserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiResponseInterceptor,

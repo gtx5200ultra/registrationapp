@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using RegistrationApp.Middlewares;
 using registrationapp_core;
@@ -42,6 +43,8 @@ namespace RegistrationApp.Server
                         .AllowAnyHeader();
                 });
             });
+
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             var app = builder.Build();
 
