@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <SpaRoot>..\registrationapp.client</SpaRoot>
+    <SpaRoot>..\registrationapp-web</SpaRoot>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:4200</SpaProxyServerUrl>
   </PropertyGroup>
@@ -15,7 +15,7 @@
     <ProjectReference Include="..\registrationapp-core\registrationapp-core.csproj" />
     <ProjectReference Include="..\registrationapp-data\registrationapp-data.csproj" />
     <ProjectReference Include="..\registrationapp-services\registrationapp-services.csproj" />
-    <ProjectReference Include="..\registrationapp.client\registrationapp-web.esproj">
+    <ProjectReference Include="..\registrationapp-web\registrationapp-web.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
