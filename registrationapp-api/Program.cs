@@ -4,6 +4,7 @@ using registrationapp_core;
 using registrationapp_core.Services;
 using registrationapp_data;
 using registrationapp_services;
+using registrationapp_services.Utils;
 
 namespace registrationapp
 {
@@ -23,6 +24,9 @@ namespace registrationapp
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<ICountryService, CountryService>();
             builder.Services.AddTransient<ICountryRegionService, CountryRegionService>();
+
+            builder.Services.Configure<CryptoOptions>(builder.Configuration.GetSection("CryptoSettings"));
+            builder.Services.AddSingleton<ICryptoHelper, CryptoHelper>();
 
             builder.Services.AddCors(options =>
             {
