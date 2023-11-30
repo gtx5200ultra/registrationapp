@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using registrationapp_core.Models;
 using registrationapp.Mapping;
 using Microsoft.AspNetCore.Http;
+using registrationapp_core.Contracts;
 
 namespace registrationapp_api_tests.Endpoints
 {
@@ -25,7 +26,7 @@ namespace registrationapp_api_tests.Endpoints
             Mock<ICountryService> mockCountryService = new();
 
             mockCountryService.Setup(repo => repo.GetCountries())
-                .ReturnsAsync(new List<Country> { new () });
+                .ReturnsAsync(new List<CountryContract> { new () });
 
             _controller = new CountriesController(mockCountryService.Object, mapper);
         }

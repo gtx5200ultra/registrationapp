@@ -1,4 +1,5 @@
 ﻿using registrationapp_core;
+using registrationapp_core.Contracts;
 using registrationapp_core.Models;
 using registrationapp_core.Services;
 using registrationapp_services.Utils;
@@ -16,7 +17,7 @@ namespace registrationapp_services
             _cryptoHelper = cryptoHelper;
         }
 
-        public async Task<User> CreateUser(User user)
+        public async Task<UserContract> CreateUser(User user)
         {
             if (await _unitOfWork.Users.AnyAsync(x => x.Login == user.Login))
             {
@@ -27,7 +28,11 @@ namespace registrationapp_services
 
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.CommitAsync();
-            return user;
+
+            return new UserContract
+            {
+                Id = user.Id
+            };
         }
     }
 }

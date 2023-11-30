@@ -31,10 +31,8 @@ namespace registrationapp.Controllers
                 return BadRequest(validationResult.Errors.First().ErrorMessage);
             }
 
-            var userDb = await _userService.CreateUser(_mapper.Map<User>(dto));
-            var user = _mapper.Map<CreatedUserDto>(userDb);
-
-            return Ok(user);
+            var user = await _userService.CreateUser(_mapper.Map<User>(dto));
+            return Ok(_mapper.Map<CreatedUserDto>(user));
         }
     }
 }

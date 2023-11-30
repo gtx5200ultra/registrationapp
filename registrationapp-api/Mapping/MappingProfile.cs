@@ -9,13 +9,15 @@ namespace registrationapp.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<UserDto, User>();
-
-            CreateMap<User, CreatedUserDto>();
-            CreateMap<Country, CountryDto>();
             CreateMap<CountryRegionContract, CountryRegionDto>();
+            CreateMap<CountryContract, CountryDto>();
+            CreateMap<UserContract, CreatedUserDto>();
 
             CreateMap<CountryRegion, CountryRegionContract>();
+            CreateMap<Country, CountryContract>();
+            CreateMap<User, UserContract>();
+
+            CreateMap<UserDto, User>();
         }
     }
 }

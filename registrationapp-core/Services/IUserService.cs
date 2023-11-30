@@ -1,9 +1,10 @@
-﻿using registrationapp_core.Models;
+﻿using registrationapp_core.Contracts;
+using registrationapp_core.Models;
 
 namespace registrationapp_core.Services
 {
     public interface IUserService
     {
-        Task<User> CreateUser(User user);
+        Task<UserContract> CreateUser(User user);
     }
 }

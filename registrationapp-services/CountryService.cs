@@ -1,5 +1,5 @@
 ﻿using registrationapp_core;
-using registrationapp_core.Models;
+using registrationapp_core.Contracts;
 using registrationapp_core.Services;
 
 namespace registrationapp_services;
@@ -13,8 +13,8 @@ public class CountryService : ICountryService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<Country>> GetCountries()
+    public async Task<IEnumerable<CountryContract>> GetCountries()
     {
-        return await _unitOfWork.Countries.GetAllAsync<Country>();
+        return await _unitOfWork.Countries.GetAllAsync<CountryContract>();
     }
 }
