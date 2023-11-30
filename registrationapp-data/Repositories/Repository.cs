@@ -13,29 +13,29 @@ namespace registrationapp_data.Repositories
             Context = context;
         }
 
-        public async Task AddAsync(T entity)
+        public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            await Context.Set<T>().AddAsync(entity);
+            await Context.Set<T>().AddAsync(entity, cancellationToken);
         }
 
-        public async Task AddRangeAsync(IEnumerable<T> entities)
+        public async Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
-            await Context.Set<T>().AddRangeAsync(entities);
+            await Context.Set<T>().AddRangeAsync(entities, cancellationToken);
         }
 
-        public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return await Context.Set<T>().FirstOrDefaultAsync(predicate) != null;
+            return await Context.Set<T>().FirstOrDefaultAsync(predicate, cancellationToken) != null;
         }
 
-        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return await Context.Set<T>().Where(predicate).ToListAsync();
+            return await Context.Set<T>().Where(predicate).ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await Context.Set<T>().ToListAsync();
+            return await Context.Set<T>().ToListAsync(cancellationToken);
         }
 
         public void Remove(T entity)
