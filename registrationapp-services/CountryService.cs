@@ -15,6 +15,6 @@ public class CountryService : ICountryService
 
     public async Task<IEnumerable<Country>> GetCountries()
     {
-        return await _unitOfWork.Countries.GetAllAsync();
+        return await _unitOfWork.Countries.GetAllAsync<Country>();
     }
 }

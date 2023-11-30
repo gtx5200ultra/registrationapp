@@ -1,8 +1,8 @@
-﻿using registrationapp_core.Models;
+﻿using registrationapp_core.Contracts;
 
 namespace registrationapp_core.Services;
 
 public interface ICountryRegionService
 {
-    Task<IEnumerable<CountryRegion>> GetCountryRegionsByCountry(int countryId);
+    Task<IEnumerable<CountryRegionContract>> GetCountryRegionsByCountry(int countryId);
 }

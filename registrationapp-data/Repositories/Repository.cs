@@ -1,4 +1,6 @@
 ﻿using System.Linq.Expressions;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using registrationapp_core.Repositories;
 
@@ -7,10 +9,12 @@ namespace registrationapp_data.Repositories
     public class Repository<T> : IRepository<T> where T : class
     {
         protected readonly DbContext Context;
+        protected readonly IMapper _mapper;
 
-        public Repository(DbContext context)
+        public Repository(DbContext context, IMapper mapper)
         {
             Context = context;
+            _mapper = mapper;
         }
 
         public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
@@ -28,14 +32,14 @@ namespace registrationapp_data.Repositories
             return await Context.Set<T>().FirstOrDefaultAsync(predicate, cancellationToken) != null;
         }
 
-        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<TResult>> FindAsync<TResult>(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return await Context.Set<T>().Where(predicate).ToListAsync(cancellationToken);
+            return await Context.Set<T>().Where(predicate).ProjectTo<TResult>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<TResult>> GetAllAsync<TResult>(CancellationToken cancellationToken = default)
         {
-            return await Context.Set<T>().ToListAsync(cancellationToken);
+            return await Context.Set<T>().ProjectTo<TResult>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
         }
 
         public void Remove(T entity)

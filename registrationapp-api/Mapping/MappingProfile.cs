@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using registrationapp.DTO;
+using registrationapp_core.Contracts;
 using registrationapp_core.Models;
 
 namespace registrationapp.Mapping
@@ -12,7 +13,9 @@ namespace registrationapp.Mapping
 
             CreateMap<User, CreatedUserDto>();
             CreateMap<Country, CountryDto>();
-            CreateMap<CountryRegion, CountryRegionDto>();
+            CreateMap<CountryRegionContract, CountryRegionDto>();
+
+            CreateMap<CountryRegion, CountryRegionContract>();
         }
     }
 }

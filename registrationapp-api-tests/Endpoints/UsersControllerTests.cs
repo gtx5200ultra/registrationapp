@@ -23,14 +23,14 @@ namespace registrationapp_api_tests.Endpoints
                 .UseInMemoryDatabase(databaseName: "InMemoryDatabase" + Guid.NewGuid())
                 .Options;
 
-            var unitOfWork = new UnitOfWork(new RepositoryDbContext(options));
-
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
             });
 
             var mapper = mappingConfig.CreateMapper();
+
+            var unitOfWork = new UnitOfWork(new RepositoryDbContext(options), mapper);
 
             Mock<ICryptoHelper> mockCryptoHelper = new();
 
@@ -52,7 +52,7 @@ namespace registrationapp_api_tests.Endpoints
 
             Assert.IsNotNull(result);
             Assert.AreEqual(StatusCodes.Status400BadRequest, result.StatusCode);
-            Assert.AreEqual((string)result.Value!, "'Login' is not in the correct format");
+            Assert.AreEqual((string)result.Value!, "'Login' is not in the correct format.");
         }
 
         [TestMethod]

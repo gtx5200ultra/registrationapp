@@ -3,10 +3,10 @@ using AutoMapper;
 using registrationapp.Controllers;
 using registrationapp_core.Services;
 using Microsoft.AspNetCore.Mvc;
-using registrationapp_core.Models;
 using registrationapp.Mapping;
 using Microsoft.AspNetCore.Http;
 using registrationapp.DTO;
+using registrationapp_core.Contracts;
 
 namespace registrationapp_api_tests.Endpoints
 {
@@ -26,7 +26,7 @@ namespace registrationapp_api_tests.Endpoints
             Mock<ICountryRegionService> mockCountryRegionService = new();
 
             mockCountryRegionService.Setup(repo => repo.GetCountryRegionsByCountry(It.IsAny<int>()))
-                .ReturnsAsync(new List<CountryRegion> { new () });
+                .ReturnsAsync(new List<CountryRegionContract> { new () });
 
             _controller = new CountryRegionsController(mockCountryRegionService.Object, mapper);
         }

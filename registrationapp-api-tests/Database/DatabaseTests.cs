@@ -1,4 +1,7 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using registrationapp.DTO;
+using registrationapp.Mapping;
 using registrationapp_core.Models;
 using registrationapp_data;
 
@@ -16,7 +19,14 @@ namespace registrationapp_api_tests.Database
                 .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
                 .Options;
 
-            _unitOfWork = new UnitOfWork(new RepositoryDbContext(options));
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            var mapper = mappingConfig.CreateMapper();
+
+            _unitOfWork = new UnitOfWork(new RepositoryDbContext(options), mapper);
         }
 
         [TestMethod]
@@ -31,7 +41,7 @@ namespace registrationapp_api_tests.Database
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.CommitAsync();
 
-            var result = await _unitOfWork.Users.FindAsync(x => x.Id == user.Id);
+            var result = await _unitOfWork.Users.FindAsync<CreatedUserDto>(x => x.Id == user.Id);
 
             Assert.IsNotNull(result);
         }
@@ -76,7 +86,7 @@ namespace registrationapp_api_tests.Database
             await _unitOfWork.Countries.AddRangeAsync(countries);
             await _unitOfWork.CommitAsync();
 
-            var result = await _unitOfWork.Countries.GetAllAsync();
+            var result = await _unitOfWork.Countries.GetAllAsync<CountryDto>();
 
             Assert.AreEqual(result.Count(), 2);
         }
