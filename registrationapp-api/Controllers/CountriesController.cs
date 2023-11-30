@@ -19,7 +19,7 @@ namespace registrationapp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllProducts()
+        public async Task<ActionResult> GetCountries()
         {
             var countries = await _countryService.GetCountries();
             return Ok(_mapper.Map<IEnumerable<CountryDto>>(countries));

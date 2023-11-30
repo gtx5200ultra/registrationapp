@@ -31,7 +31,8 @@ namespace registrationapp_services
 
             return new UserContract
             {
-                Id = user.Id
+                Id = user.Id,
+                Login = user.Login
             };
         }
     }

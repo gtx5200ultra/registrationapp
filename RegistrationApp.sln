@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registrationapp-data", "reg
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registrationapp-services", "registrationapp-services\registrationapp-services.csproj", "{94552B3D-1856-4EDB-B05D-6ECF8A32E5A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registrationapp-api-tests", "registrationapp-api-tests\registrationapp-api-tests.csproj", "{8B1E2F00-5468-4F7A-9184-6902505214BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registrationapp-api-tests", "registrationapp-api-tests\registrationapp-api-tests.csproj", "{8B1E2F00-5468-4F7A-9184-6902505214BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registrationapp-web-tests", "registrationapp-web-tests\registrationapp-web-tests.csproj", "{67CC3666-F7FF-4AC8-8F6E-EA3A4F0E97D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{8B1E2F00-5468-4F7A-9184-6902505214BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B1E2F00-5468-4F7A-9184-6902505214BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B1E2F00-5468-4F7A-9184-6902505214BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67CC3666-F7FF-4AC8-8F6E-EA3A4F0E97D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67CC3666-F7FF-4AC8-8F6E-EA3A4F0E97D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67CC3666-F7FF-4AC8-8F6E-EA3A4F0E97D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67CC3666-F7FF-4AC8-8F6E-EA3A4F0E97D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

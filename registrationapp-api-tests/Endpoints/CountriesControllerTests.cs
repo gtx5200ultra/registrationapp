@@ -34,7 +34,7 @@ namespace registrationapp_api_tests.Endpoints
         [TestMethod]
         public async Task GetAllProducts_Valid()
         {
-            var result = await _controller.GetAllProducts() as OkObjectResult;
+            var result = await _controller.GetCountries() as OkObjectResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(StatusCodes.Status200OK, result.StatusCode);
