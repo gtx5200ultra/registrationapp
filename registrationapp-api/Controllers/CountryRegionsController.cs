@@ -25,6 +25,4 @@ namespace registrationapp.Controllers
             return Ok(_mapper.Map<IEnumerable<CountryRegionDto>>(countryRegions));
         }
     }
-
-
 }

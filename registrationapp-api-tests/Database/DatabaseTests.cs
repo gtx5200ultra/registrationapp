@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using registrationapp_core.Models;
 using registrationapp_data;
 
-namespace registrationapp_api_tests
+namespace registrationapp_api_tests.Database
 {
     [TestClass]
     public class DatabaseTests
