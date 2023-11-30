@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidators } from "../form-validators";
 import { RegistrationFormDataService } from '../form-data.service';
@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'registration-first-step',
-  templateUrl: 'first-step.component.html'
+  templateUrl: 'first-step.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FirstStepComponent {
   isSubmitted = false;

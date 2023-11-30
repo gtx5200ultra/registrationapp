@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable, Subject, catchError, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { Country } from 'src/models/country';
 import { CountryRegion } from 'src/models/countryregion';
 import { ApiCountryService } from 'src/services/api-country.service';
@@ -13,7 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'registration-second-step',
-  templateUrl: 'second-step.component.html'
+  templateUrl: 'second-step.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SecondStepComponent implements OnInit, OnDestroy {
 
