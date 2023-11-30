@@ -1,5 +1,5 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -14,10 +14,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { FirstStepComponent } from './registration-form/first-step/first-step.component';
 import { SecondStepComponent } from './registration-form/second-step/second-step.component';
 import { ApiCountryService } from 'src/services/api-country.service';
-import { ApiResponseInterceptor } from 'src/services/api-response.interceptor';
 import { ApiCountryRegionService } from 'src/services/api-countryregion.service';
 import { ApiUserService } from 'src/services/api-user.service';
 import { ToastrModule } from 'ngx-toastr';
+import { GlobalErrorHandler } from 'src/services/error-handler';
 
 @NgModule({
   declarations: [
@@ -42,10 +42,9 @@ import { ToastrModule } from 'ngx-toastr';
     ApiCountryRegionService,
     ApiUserService,
     {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiResponseInterceptor,
-      multi: true,
-    },
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -10,7 +10,7 @@ export class ApiUserService {
 
   constructor(private http: HttpClient) { }
 
-  createUser(user: User): Observable<any> {
-    return this.http.post<User>(`api/users`, user);
+  createUser(user: User): Observable<User[]> {
+    return this.http.post<User[]>(`api/users`, user);
   }
 }

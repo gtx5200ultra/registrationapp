@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using registrationapp.Middlewares.ApiResponse;
 using registrationapp_core;
 using registrationapp_core.Services;
 using registrationapp_data;
@@ -66,8 +65,6 @@ namespace registrationapp
             {
                 app.UseCors("ProductionPolicy");
             }
-
-            app.UseMiddleware<ApiResponseMiddleware>();
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

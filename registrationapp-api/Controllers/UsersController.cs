@@ -31,8 +31,19 @@ namespace registrationapp.Controllers
                 return BadRequest(validationResult.Errors.First().ErrorMessage);
             }
 
-            var user = await _userService.CreateUser(_mapper.Map<User>(dto));
-            return Ok(_mapper.Map<CreatedUserDto>(user));
+            try
+            {
+                var user = await _userService.CreateUser(_mapper.Map<User>(dto));
+                return Ok(_mapper.Map<CreatedUserDto>(user));
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Generic Error");
+            }
         }
     }
 }
